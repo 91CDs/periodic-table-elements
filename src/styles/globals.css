@@ -22,6 +22,10 @@ body,
   width: max-content;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));

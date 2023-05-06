@@ -1,6 +1,6 @@
 .title {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1.25fr;
   grid-template-rows: min-content;
   width: 50vw;
   margin: auto 0;

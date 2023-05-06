@@ -1,10 +1,14 @@
 import React from 'react'
 import { getElementColor, roundNearest } from "../utils/card"
 import card from "../styles/Home.module.css"
+import { useElementID } from '@/hooks/elementID'
 
 export const ElementCard = ({element, index}: {element: ChemicalElement, index: number}) => {
+  const setID = useElementID()[1];
+
   function handleClickElement() {
-    console.log("clicked element");
+    setID(index);
+    console.log("clicked element", index);
   } 
 
   return (

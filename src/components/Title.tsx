@@ -2,24 +2,40 @@ import React, { useEffect, useRef } from 'react'
 import title from "../styles/Title.module.css"
 import card from "../styles/Home.module.css"
 import { getElementColor, typeList } from '@/utils/card'
-import ScrollReveal from "scrollreveal"
 
 export const Title = () => {
-  
-  const titleCard = useRef<HTMLDivElement>(null)
+  const slideDown = { distance: "-150%", origin: "bottom", easing: "ease-in-out", cleanup: true };
+  const slideUp = { distance: "-150%", origin: "top", easing: "ease-in-out", cleanup: true };
+
+  const titleCard = useRef<HTMLDivElement>(null);
+  const formatCard = useRef<HTMLDivElement>(null);
+  const legendCard = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    ScrollReveal().reveal(titleCard.current as HTMLElement)
-  })
+    async function animate() {
+      const sr = (await import("scrollreveal")).default
+      if (titleCard.current) {
+        sr().reveal(titleCard.current, slideDown)
+      }
+      if (formatCard.current) {
+        sr().reveal(formatCard.current, {...slideUp, delay: 100})
+      }
+      if (legendCard.current) {
+        sr().reveal(legendCard.current, {...slideUp, delay: 200})
+      }
+    }
+    animate()
+  },[])
 
   return (
-    <div className={`${title.title}`} ref={titleCard}>
+    <div className={`${title.title}`}>
       
-      <div className={title.intro}>
+      <div className={title.intro} ref={titleCard}>
         <h1>Periodic Table of Elements</h1>
         <p>Click any element to see its properties!</p>
       </div>
 
-      <div className={title.format}>
+      <div className={title.format} ref={formatCard}>
         <h2>Format:</h2>
         <div className={title.formats}>
           <div 
@@ -40,7 +56,7 @@ export const Title = () => {
         </div>
       </div>
 
-      <div className={title.legend}>
+      <div className={title.legend} ref={legendCard}>
         <h2>Legend:</h2>
         <div className={title.legends} >
           {typeList.map((type, index) => {
